@@ -6,6 +6,7 @@ import config from "./config";
 import connectMongo from "./config/mongo";
 // routes
 import indexRoutes from "./routes";
+import userRoutes from "./routes/user";
 
 const server = express();
 
@@ -27,4 +28,5 @@ server.listen(config.server.port, () => {
 
   // routing
   server.use("/", indexRoutes);
+  server.use("/api/users", userRoutes);
 });
