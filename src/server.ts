@@ -1,11 +1,9 @@
 import express from "express";
 import morgan from "morgan";
-import passport from "passport";
 import cors from "cors";
 // util
 import config from "./config";
 import connectMongo from "./config/mongo";
-import passportConfig from "./config/passport";
 // routes
 import indexRoutes from "./routes";
 
@@ -23,11 +21,6 @@ server.listen(config.server.port, () => {
 
   // connect the database
   connectMongo();
-
-  // configure and set passport middleware
-  passportConfig(passport);
-
-  server.use(passport.initialize());
 
   // cross-origin-routing
   server.use(cors());
