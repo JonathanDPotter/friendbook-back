@@ -1,7 +1,7 @@
 import { Document } from "mongoose";
 
-export default interface Iuser extends Document{
-  username: string;
+export default interface Iuser extends Document {
+  email: string;
   password: string;
   firstName: string;
   lastName: string;
@@ -9,9 +9,14 @@ export default interface Iuser extends Document{
 }
 
 export interface InewUser {
-  username: string;
+  email: string;
   password: string;
   firstName: string;
   lastName: string;
   image: string;
+}
+
+export interface Ilogin {
+  email: string;
+  password: string;
 }

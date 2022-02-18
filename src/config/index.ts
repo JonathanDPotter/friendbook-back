@@ -14,7 +14,14 @@ const {
   SERVER_TOKEN_EXPIRETIME,
   SERVER_TOKEN_ISSUER,
   SERVER_TOKEN_SECRET,
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  CLIENT_URL,
 } = process.env;
+
+const CLIENT = {
+  url: CLIENT_URL,
+};
 
 const MONGO_OPTIONS = {
   socketTimeoutMS: 30000,
@@ -36,6 +43,10 @@ const SERVER = {
   hostname: HOSTNAME,
   port: PORT,
   env: NODE_ENV,
+  baseURL:
+    NODE_ENV === "development"
+      ? `http://${HOSTNAME}:${PORT}/`
+      : `https://${HOSTNAME}:${PORT}/`,
   token: {
     expireTime: SERVER_TOKEN_EXPIRETIME,
     issuer: SERVER_TOKEN_ISSUER,
@@ -43,6 +54,18 @@ const SERVER = {
   },
 };
 
-const config = { server: SERVER, mongo: MONGO };
+const GOOGLE = {
+  clientId: GOOGLE_CLIENT_ID,
+  clientSecret: GOOGLE_CLIENT_SECRET,
+  project_id: "",
+  auth_uri: "https://accounts.google.com/o/oauth2/auth",
+  token_uri: "https://oauth2.googleapis.com/token",
+  auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+  client_secret: "",
+  redirect_uris: [`${SERVER.baseURL}/auth/google/callback`],
+  scopes: ["https://www.googleapis.com/auth/youtube.readonly"],
+};
+
+const config = { server: SERVER, mongo: MONGO, google: GOOGLE, client: CLIENT };
 
 export default config;

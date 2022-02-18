@@ -13,6 +13,8 @@ declare global {
       SERVER_TOKEN_EXPIRETIME: number;
       SERVER_TOKEN_ISSUER: string;
       SERVER_TOKEN_SECRET: string;
+      GOOGLE_CLIENT_ID: string;
+      GOOGLE_CLIENT_SECRET: string;
     }
   }
 }

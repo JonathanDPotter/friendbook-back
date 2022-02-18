@@ -24,7 +24,12 @@ server.listen(config.server.port, () => {
   connectMongo();
 
   // cross-origin-routing
-  server.use(cors());
+  server.use(
+    cors({
+      origin: config.client.url,
+      credentials: true,
+    })
+  );
 
   // routing
   server.use("/", indexRoutes);

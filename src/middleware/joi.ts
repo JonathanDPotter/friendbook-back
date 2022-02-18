@@ -1,10 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 import Joi, { ObjectSchema } from "joi";
-import { InewUser } from "../interfaces/user";
+import { Ilogin } from "../interfaces/user";
 
 // regEx string for password
-const passReg =
-  "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+// const passReg =
+//   "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+// add next line to password to enforce the Regex
+// .pattern(new RegExp(passReg))
+
+
 
 export const ValidateJoi = (schema: ObjectSchema) => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -20,11 +24,10 @@ export const ValidateJoi = (schema: ObjectSchema) => {
 };
 
 export const Schemas = {
-  user: Joi.object<InewUser>({
-    username: Joi.string().alphanum().max(15).required(),
-    password: Joi.string().pattern(new RegExp(passReg)).required(),
-    firstName: Joi.string().required(),
-    lastName: Joi.string().required(),
-    image: Joi.string().required(),
+  login: Joi.object<Ilogin>({
+    email: Joi.string()
+      .email({ tlds: { allow: false } })
+      .required(),
+    password: Joi.string().required(),
   }),
 };

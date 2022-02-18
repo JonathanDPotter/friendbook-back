@@ -11,9 +11,8 @@ router.get("/validate", extractJWT, controller.validateToken);
 
 router.get("/:_id", controller.getUser);
 
-router.post("/register", ValidateJoi(Schemas.user), controller.register);
+router.post("/register", controller.register);
 
-router.post("/login", ValidateJoi(Schemas.user), controller.login);
-
+router.post("/login", ValidateJoi(Schemas.login), controller.login);
 
 export default router;

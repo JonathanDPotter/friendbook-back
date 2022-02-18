@@ -6,12 +6,12 @@ const signJWT = (
   user: Iuser,
   callback: (error: Error | null, token: string | null) => void
 ): void => {
-  const { username, password } = user;
-  console.log(`Attempting to sign token for ${username}`);
+  const { email, password } = user;
+  console.log(`Attempting to sign token for ${email}`);
 
   try {
     jwt.sign(
-      { username },
+      { email },
       config.server.token.secret,
       {
         issuer: config.server.token.issuer,

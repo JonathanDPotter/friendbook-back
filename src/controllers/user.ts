@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import mongoose, { Error } from "mongoose";
-import User from "../models/user";
 import bcrypt from "bcrypt";
+import User from "../models/user";
 import InewUser from "../interfaces/user";
 import Iuser from "../interfaces/user";
 import signJWT from "../utils/signJWT";
@@ -14,13 +14,13 @@ const validateToken = (req: Request, res: Response) => {
 };
 
 const register = async (req: Request, res: Response) => {
-  let { username, password, firstName, lastName, image } = req.body as InewUser;
+  let { email, password, firstName, lastName, image } = req.body as InewUser;
 
-  const exists = await User.findOne({ username }).exec();
+  const exists = await User.findOne({ email }).exec();
 
   if (exists) {
     console.log("user exists");
-    return res.json({ success: false, message: "Username already in use." });
+    return res.json({ success: false, message: "email already in use." });
   } else {
     bcrypt.hash(password, 10, (hashError, hash) => {
       if (hashError) {
@@ -33,7 +33,7 @@ const register = async (req: Request, res: Response) => {
 
       const newUser = new User({
         _id: new mongoose.Types.ObjectId(),
-        username,
+        email,
         password: hash,
         firstName,
         lastName,
@@ -51,10 +51,10 @@ const register = async (req: Request, res: Response) => {
 };
 
 const login = async (req: Request, res: Response) => {
-  let { username, password } = req.body as Iuser;
+  let { email, password } = req.body as Iuser;
 
   try {
-    const user = await User.findOne({ username }).exec();
+    const user = await User.findOne({ email }).exec();
 
     if (user) {
       const isAuth = await bcrypt.compare(password, user.password);
@@ -106,7 +106,7 @@ const getAllUsers = async (req: Request, res: Response) => {
   res.status(200).json({ success: true, users });
 };
 
-const controller = {
+export default {
   validateToken,
   register,
   login,
@@ -114,5 +114,3 @@ const controller = {
   updateUser,
   getAllUsers,
 };
-
-export default controller;
