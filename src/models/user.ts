@@ -21,9 +21,13 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
 
-  image: {
+  gender: {
     type: String,
     required: true,
+  },
+
+  image: {
+    type: String,
   },
 });
 

@@ -2,8 +2,7 @@ import { Request, Response } from "express";
 import mongoose, { Error } from "mongoose";
 import bcrypt from "bcrypt";
 import User from "../models/user";
-import InewUser from "../interfaces/user";
-import Iuser from "../interfaces/user";
+import { Iuser, InewUser } from "../interfaces/user";
 import signJWT from "../utils/signJWT";
 
 const validateToken = (req: Request, res: Response) => {
@@ -14,7 +13,7 @@ const validateToken = (req: Request, res: Response) => {
 };
 
 const register = async (req: Request, res: Response) => {
-  let { email, password, firstName, lastName, image } = req.body as InewUser;
+  let { firstName, lastName, email, password, gender } = req.body as InewUser;
 
   const exists = await User.findOne({ email }).exec();
 
@@ -37,12 +36,16 @@ const register = async (req: Request, res: Response) => {
         password: hash,
         firstName,
         lastName,
-        image,
+        gender,
       });
 
       return newUser
         .save()
-        .then(() => res.status(201).json({ success: true }))
+        .then(() =>
+          res
+            .status(201)
+            .json({ success: true, message: `Added user ${newUser.firstName}` })
+        )
         .catch((error: Error) =>
           res.json({ success: false, message: error.message, error })
         );
