@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import mongoose, { Error } from "mongoose";
 import bcrypt from "bcrypt";
 import User from "../models/user";
-import { Iuser, InewUser } from "../interfaces/user";
+import { Iuser, InewUser, Ilogin } from "../interfaces/user";
 import signJWT from "../utils/signJWT";
 
 const validateToken = (req: Request, res: Response) => {
@@ -54,7 +54,7 @@ const register = async (req: Request, res: Response) => {
 };
 
 const login = async (req: Request, res: Response) => {
-  let { email, password } = req.body as Iuser;
+  let { email, password } = req.body as Ilogin;
 
   try {
     const user = await User.findOne({ email }).exec();
