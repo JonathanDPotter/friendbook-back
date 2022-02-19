@@ -57,7 +57,7 @@ const login = async (req: Request, res: Response) => {
   let { email, password } = req.body as Ilogin;
 
   try {
-    const user = await User.findOne({ email }).exec();
+    const user: Iuser = await User.findOne({ email }).exec();
 
     if (user) {
       const isAuth = await bcrypt.compare(password, user.password);
@@ -65,7 +65,12 @@ const login = async (req: Request, res: Response) => {
       if (isAuth) {
         signJWT(user, (error, token) => {
           if (error) res.json({ success: false, message: "Unauthorized" });
-          if (token) res.status(200).json({ success: true, token });
+          if (token)
+            res.status(200).json({
+              success: true,
+              token,
+              userName: user.firstName + " " + user.lastName,
+            });
         });
       } else {
         res.json({ success: false, message: "Unauthorized" });
