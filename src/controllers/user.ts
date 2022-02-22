@@ -13,7 +13,8 @@ const validateToken = (req: Request, res: Response) => {
 };
 
 const register = async (req: Request, res: Response) => {
-  let { firstName, lastName, email, password, gender } = req.body as InewUser;
+  let { firstName, lastName, email, password, gender, image } =
+    req.body as InewUser;
 
   const exists = await User.findOne({ email }).exec();
 
@@ -34,6 +35,7 @@ const register = async (req: Request, res: Response) => {
         _id: new mongoose.Types.ObjectId(),
         email,
         password: hash,
+        image,
         firstName,
         lastName,
         gender,
@@ -63,13 +65,14 @@ const login = async (req: Request, res: Response) => {
       const isAuth = await bcrypt.compare(password, user.password);
 
       if (isAuth) {
+        user.password = "";
         signJWT(user, (error, token) => {
           if (error) res.json({ success: false, message: "Unauthorized" });
           if (token)
             res.status(200).json({
               success: true,
               token,
-              userName: user.firstName + " " + user.lastName,
+              user,
             });
         });
       } else {
