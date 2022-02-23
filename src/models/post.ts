@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import { UserSchema } from "./user";
 
-const UserSchema = new mongoose.Schema({
+const PostSchema = new mongoose.Schema({
   author: {
-    type: String,
+    type: UserSchema,
     required: true,
   },
 
@@ -21,10 +22,13 @@ const UserSchema = new mongoose.Schema({
   },
   comments: [
     {
-      body: { type: String, required: true },
-      image: { type: String },
+      author: UserSchema,
+      date: Number,
+      body: String,
+      image: String,
+      reaction: String,
     },
   ],
 });
 
-export default mongoose.model("user", UserSchema);
+export default mongoose.model("post", PostSchema);
