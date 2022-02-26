@@ -1,3 +1,31 @@
 {
-  "message": "Welcome to my api."
+  "message": "Welcome to my api.",
+  "routes": {
+    "index": {
+      "root": "/",
+      "get": {
+        "": "returns this json object"
+      }
+    },
+    "/api/posts": {
+      "get": {
+        "/": "returns all posts",
+        "/:_id": "returns specific post with _id"
+      },
+      "post": { "/": "creates a new post with {author, date, body, image}" },
+      "put": { "/:_id": "update specific post with _id" },
+      "delete": { "/:_id": "delete specific post with _id" }
+    },
+    "/api/users": {
+      "get": {
+        "/": "returns all users",
+        "/validate": "checks bearer token returns validation",
+        "/:_id": "returns specific user with _id"
+      },
+      "post": {
+        "/register": "creates a new user with {email, password, firstName, lastName, gender, image}",
+        "/login": "returns authorization token with {email, password}"
+      }
+    }
+  }
 }
