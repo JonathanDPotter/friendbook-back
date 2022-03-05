@@ -1,6 +1,4 @@
 import { Request, Response } from "express";
-import mongoose, { Error } from "mongoose";
-import { InewPost } from "../interfaces/post";
 import Post from "../models/post";
 
 const getPosts = async (req: Request, res: Response) => {
@@ -15,15 +13,16 @@ const getPosts = async (req: Request, res: Response) => {
 };
 
 const makePost = async (req: Request, res: Response) => {
-  try {
-    const newPost = new Post(req.body);
-    const posted = await newPost.save();
-    return res.status(201).json({ success: true, posted });
-  } catch (error: any) {
-    const { message } = error;
-    console.error(message, error);
-    res.json({ success: false, message, error });
-  }
+  res.json(req.body);
+  // try {
+  //   const newPost = new Post(req.body);
+  //   const posted = await newPost.save();
+  //   return res.status(201).json({ success: true, posted });
+  // } catch (error: any) {
+  //   const { message } = error;
+  //   console.error(message, error);
+  //   res.json({ success: false, message, error });
+  // }
 };
 
 const getPost = async (req: Request, res: Response) => {

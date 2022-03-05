@@ -17,6 +17,11 @@ const {
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
   CLIENT_URL,
+  CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_UPLOAD_PRESET,
+  CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET,
+  CLOUDINARY_URL,
 } = process.env;
 
 const CLIENT = {
@@ -37,6 +42,14 @@ const MONGO = {
   database: MONGO_DATABASE,
   options: MONGO_OPTIONS,
   url: `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_HOST}/${MONGO_DATABASE}`,
+};
+
+const CLOUDINARY = {
+  cloud_name: CLOUDINARY_CLOUD_NAME,
+  upload_preset: CLOUDINARY_UPLOAD_PRESET,
+  api_key: CLOUDINARY_API_KEY,
+  api_secret: CLOUDINARY_API_SECRET,
+  url: CLOUDINARY_URL,
 };
 
 const SERVER = {
@@ -66,6 +79,12 @@ const GOOGLE = {
   scopes: ["https://www.googleapis.com/auth/youtube.readonly"],
 };
 
-const config = { server: SERVER, mongo: MONGO, google: GOOGLE, client: CLIENT };
+const config = {
+  server: SERVER,
+  mongo: MONGO,
+  google: GOOGLE,
+  client: CLIENT,
+  cloudinary: CLOUDINARY,
+};
 
 export default config;
