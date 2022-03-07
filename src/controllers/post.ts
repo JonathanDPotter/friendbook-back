@@ -13,16 +13,15 @@ const getPosts = async (req: Request, res: Response) => {
 };
 
 const makePost = async (req: Request, res: Response) => {
-  res.json(req.body);
-  // try {
-  //   const newPost = new Post(req.body);
-  //   const posted = await newPost.save();
-  //   return res.status(201).json({ success: true, posted });
-  // } catch (error: any) {
-  //   const { message } = error;
-  //   console.error(message, error);
-  //   res.json({ success: false, message, error });
-  // }
+  try {
+    const newPost = new Post(req.body);
+    const posted = await newPost.save();
+    return res.status(201).json({ success: true, posted });
+  } catch (error: any) {
+    const { message } = error;
+    console.error(message, error);
+    res.json({ success: false, message, error });
+  }
 };
 
 const getPost = async (req: Request, res: Response) => {
