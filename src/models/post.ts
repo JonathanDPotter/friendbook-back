@@ -14,12 +14,10 @@ const PostSchema = new mongoose.Schema({
 
   body: {
     type: String,
-    required: true,
   },
 
   image: {
     type: String,
-    required: true,
   },
   comments: [
     {
@@ -27,9 +25,26 @@ const PostSchema = new mongoose.Schema({
       date: Number,
       body: String,
       image: String,
-      reaction: String,
+      reactions: {
+        angry: [String],
+        care: [String],
+        love: [String],
+        haha: [String],
+        wow: [String],
+        sad: [String],
+        like: [String],
+      },
     },
   ],
+  reactions: {
+    angry: [String],
+    care: [String],
+    love: [String],
+    haha: [String],
+    wow: [String],
+    sad: [String],
+    like: [String],
+  },
 });
 
 export default mongoose.model("post", PostSchema);

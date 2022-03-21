@@ -15,7 +15,7 @@ export interface Icomment {
   author: Iuser;
   date: number;
   body: string;
-  image: string;
+  image?: string;
   reaction?: Reactions[];
 }
 
@@ -32,5 +32,5 @@ export interface InewPost {
   author: Iuser;
   date: number;
   body: string;
-  image: string;
+  image?: string;
 }
