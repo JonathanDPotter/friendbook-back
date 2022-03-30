@@ -15,4 +15,6 @@ router.post("/register", controller.register);
 
 router.post("/login", ValidateJoi(Schemas.login), controller.login);
 
+router.put("/:_id", controller.updateUser)
+
 export default router;

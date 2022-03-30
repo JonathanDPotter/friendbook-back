@@ -101,14 +101,15 @@ const getUser = async (req: Request, res: Response) => {
 
 const updateUser = async (req: Request, res: Response) => {
   try {
+    console.log(req.body);
     const user = await User.findByIdAndUpdate(req.params, req.body, {
       new: true,
     }).select("-password");
-    res.send(200).json({ success: true, user });
+    res.status(200).json({ success: true, user });
   } catch (error: any) {
     const { message } = error;
     console.error(message, error);
-    res.status(500).json({ success: false, message, error });
+    res.json({ success: false, message, error });
   }
 };
 
