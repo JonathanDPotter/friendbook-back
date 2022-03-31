@@ -39,7 +39,7 @@ const register = async (req: Request, res: Response) => {
         firstName,
         lastName,
         gender,
-        bio: "",
+        bio: "Create a bio.",
       });
 
       return newUser
