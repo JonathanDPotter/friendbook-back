@@ -39,6 +39,7 @@ const register = async (req: Request, res: Response) => {
         firstName,
         lastName,
         gender,
+        bio: "",
       });
 
       return newUser

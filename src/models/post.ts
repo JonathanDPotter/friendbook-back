@@ -3,7 +3,7 @@ import { UserSchema } from "./user";
 
 const PostSchema = new mongoose.Schema({
   author: {
-    type: UserSchema,
+    type: String,
     required: true,
   },
 
@@ -21,7 +21,7 @@ const PostSchema = new mongoose.Schema({
   },
   comments: [
     {
-      author: UserSchema,
+      author: String,
       date: Number,
       body: String,
       image: String,
